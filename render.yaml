@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: railway-navigation-backend
+    env: node
+    plan: free
+    rootDir: railway-navigation-system/backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        value: mongodb+srv://SiddarthR:sidd1818%40@cluster0.rnalbf3.mongodb.net/railway_navigation?retryWrites=true&w=majority

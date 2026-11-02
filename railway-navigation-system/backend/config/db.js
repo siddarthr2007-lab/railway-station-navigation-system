@@ -6,8 +6,12 @@ let mongodInstance = null;
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 2000,
+    let mongoUri = process.env.MONGO_URI;
+    if (mongoUri && mongoUri.includes("@@")) {
+      mongoUri = mongoUri.replace("@@", "%40@");
+    }
+    const conn = await mongoose.connect(mongoUri || "mongodb://localhost:27017/railway_navigation", {
+      serverSelectionTimeoutMS: 5000,
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     const count = await Station.countDocuments();
